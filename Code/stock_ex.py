@@ -19,7 +19,9 @@ apple = pdr.DataReader("AAPL", "yahoo", start, end)
 
 
 # 반복문 돌려서 apple_data에 apple['Close'] 넣기
+#Series에 넣기!
 apple_close = Series(apple['Close'])
+#print(apple_close)
 #print(apple_close[4])
 
 # 날짜를 모두 apple_date에 넣음
@@ -27,7 +29,37 @@ apple_date = Series(apple.index)
 #print(apple_date[1])
 
 #apple_data라는 변수에 'Close'의 정보와 날짜를 넣음
-apple_data =Series(apple['Close'], index=apple_date) 
-print(apple_data)
+apple_data =Series(apple_close, index=apple_date) 
+#print(apple_data[apple_close])
+#print(apple_data)
+#print(apple_data['2020-10-15'])
 
-print(apple_data['2020-10-15'])
+###################
+# DataFrame으로 만들기
+apple_day = DataFrame(apple_close, index=apple_date)
+#print(apple_day)
+#print("##")
+#print(apple_day['Close'])
+
+# 날짜로 Close값을 검색할때
+day_data = apple_day.loc['2020-10-16']
+#print(day_data)  #Close 119.019997 라고 출력됨.
+###################
+
+def max_profit(prices):
+    n = len(prices)
+    max_profit = 0
+    min_price = prices[0]
+
+    for i in range(1, n):
+        profit = prices[i]-min_price
+
+        if profit > max_profit:
+            max_profit = profit
+        if prices[i] < min_price:
+            min_price = prices[i]
+
+    return max_profit
+
+print(max_profit(apple_close))
+
