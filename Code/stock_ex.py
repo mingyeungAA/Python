@@ -2,7 +2,7 @@ from pandas_datareader import data as pdr
 from pandas import Series, DataFrame
 import yfinance as yf
 from datetime import datetime
-import pandas as pd
+import unittest
 
 start = datetime(2020,4,17)
 end = datetime(2020,10,17)
@@ -30,22 +30,27 @@ apple_date = Series(apple.index)
 
 #apple_data라는 변수에 'Close'의 정보와 날짜를 넣음
 apple_data =Series(apple_close, index=apple_date) 
-#print(apple_data[apple_close])
-#print(apple_data)
+#print(apple_data[apple_close])  #close값만 쭉 나열됨
+apple_data.index.name='Date'
+#print(apple_data.index)
+#print(apple_data['67.08749389648438'])
 #print(apple_data['2020-10-15'])
 
 ###################
 # DataFrame으로 만들기
 apple_day = DataFrame(apple_close, index=apple_date)
 #print(apple_day)
-#print("##")
-#print(apple_day['Close'])
+print("##")
+print(apple_day['Close'].index)
+#print(apple_close[2])   #69.232498..
+
 
 # 날짜로 Close값을 검색할때
 day_data = apple_day.loc['2020-10-16']
 #print(day_data)  #Close 119.019997 라고 출력됨.
 ###################
 
+# 최대수익 알고리즘
 def max_profit(prices):
     n = len(prices)
     max_profit = 0
@@ -61,5 +66,11 @@ def max_profit(prices):
 
     return max_profit
 
-print(max_profit(apple_close))
 
+# 해당 주가의 날짜 출력하기
+# apple_data.index(날짜부분)
+
+
+# 최대수익과 날짜 출력하기
+print(max_profit(apple_close))   #67.0874938..
+#print(date(max_profit(apple_close)))
