@@ -18,11 +18,9 @@ apple = pdr.DataReader("AAPL", "yahoo", start, end)
 #print(apple.index)
 
 
-# 반복문 돌려서 apple_data에 apple['Close'] 넣기
 #Series에 넣기!
 apple_close = Series(apple['Close'])
-#print(apple_close)
-#print(apple_close[4])
+
 
 # 날짜를 모두 apple_date에 넣음
 apple_date = Series(apple.index)
@@ -30,25 +28,19 @@ apple_date = Series(apple.index)
 
 #apple_data라는 변수에 'Close'의 정보와 날짜를 넣음
 apple_data =Series(apple_close, index=apple_date) 
+#print(apple_data)
 #print(apple_data[apple_close])  #close값만 쭉 나열됨
-apple_data.index.name='Date'
-#print(apple_data.index)
-#print(apple_data['67.08749389648438'])
-#print(apple_data['2020-10-15'])
+
 
 ###################
 # DataFrame으로 만들기
-apple_day = DataFrame(apple_close, index=apple_date)
-#print(apple_day)
-print("##")
-print(apple_day['Close'].index)
+data = DataFrame(apple_close)
+#print(data)
+#print(apple_day.index[2])   #2020-04-20 출력됨
+#print("##")
+#print(apple_day['Close'].index)
 #print(apple_close[2])   #69.232498..
 
-
-# 날짜로 Close값을 검색할때
-day_data = apple_day.loc['2020-10-16']
-#print(day_data)  #Close 119.019997 라고 출력됨.
-###################
 
 # 최대수익 알고리즘
 def max_profit(prices):
@@ -67,10 +59,12 @@ def max_profit(prices):
     return max_profit
 
 
-# 해당 주가의 날짜 출력하기
-# apple_data.index(날짜부분)
-
-
 # 최대수익과 날짜 출력하기
-print(max_profit(apple_close))   #67.0874938..
-#print(date(max_profit(apple_close)))
+print(max_profit(data['Close']))   #67.0874938..
+final_profit = max_profit(data['Close'])
+
+n=len(apple_close)
+for i in range(n):
+    if(data['Close'][i]==final_profit):
+        print(data.index[i])
+
