@@ -58,13 +58,15 @@ def max_profit(prices):
 
     return max_profit
 
-
-# 최대수익과 날짜 출력하기
-print(max_profit(data['Close']))   #67.0874938..
 final_profit = max_profit(data['Close'])
 
 n=len(apple_close)
 for i in range(n):
-    if(data['Close'][i]==final_profit):
-        print(data.index[i])
+    if data['Close'][i]==final_profit:
+        print(data['Close'][i].index)
+print('nn')
+
+#print(data['Close'][2])
+# 최대수익과 날짜 출력하기
+print(max_profit(data['Close']))   #67.0874938..
 
